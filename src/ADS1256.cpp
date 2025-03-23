@@ -288,41 +288,42 @@ void ADS1256::getAutoCal() //Getting ACAL (Automatic SYSCAL)
 	}
 }
 
-void ADS1256::setBuffer(uint8_t bufen) //Setting input buffer (Input impedance)
+void ADS1256::setBuffer(bool bufen) //Setting input buffer (Input impedance)
 {	
 	_STATUS = readRegister(STATUS_REG); //Read the most recent value of the register
 	
-	if(bufen == 0)
+	if(bufen == false)
 	{
 		//Analog input buffer is disabled (default)
 		//_STATUS |= B00000000;
 		bitWrite(_STATUS, 1, 0);
 	}
-	else if(bufen == 1)
+	else
 	{
 		//Analog input buffer is enabled (recommended)
 		//_STATUS |= B00000010;
 		bitWrite(_STATUS, 1, 1);
 	}
-	else{}
-	
+
 	writeRegister(STATUS_REG, _STATUS);
-	delay(100);
+	//delay(100);
 }
 
-void ADS1256::getBuffer() //Getting input buffer (Input impedance)
+bool ADS1256::getBuffer() //Getting input buffer (Input impedance)
 {	
 	uint8_t statusValue = readRegister(STATUS_REG);	//Read the whole STATUS register	
 	
 	if(bitRead(statusValue, 1) == 0) //Read bit 1 and print the corresponding message
 	{
 		//Analog input buffer is disabled (default)
-		Serial.println("Buffer is disabled!");
+		//Serial.println("Buffer is disabled!");
+		return false;
 	}
 	else
 	{
 		//Analog input buffer is enabled (recommended)
 		Serial.println("Buffer is enabled!");
+		return true;
 	}
 }
 

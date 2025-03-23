@@ -119,8 +119,8 @@ public:
 	void setMUX(uint8_t mux);
 	void setByteOrder(uint8_t byteOrder);
 	void getByteOrder();
-	void setBuffer(uint8_t bufen);
-	void getBuffer();
+	void setBuffer(bool bufen);
+	bool getBuffer();
 	void setAutoCal(uint8_t acal);
 	void getAutoCal();
 	void setGPIO(uint8_t dir0, uint8_t dir1, uint8_t dir2, uint8_t dir3);
